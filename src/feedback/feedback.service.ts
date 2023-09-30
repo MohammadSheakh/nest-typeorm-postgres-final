@@ -21,7 +21,7 @@ export class FeedbackService {
   }
 
   // id : number // type any rakha uchit na 😢
-  async findOne(id: string | number | any):Promise<Feedback | null>{
+  async findOneFeedback(id: string | number | any):Promise<Feedback | null>{
     
     if(id != null && id != undefined){
       return this.feedbacksRepository.findOne({where : {id}});
@@ -29,23 +29,24 @@ export class FeedbackService {
     
   }
 
-  async update (id : number, feedback: Feedback):Promise<Feedback>{
+  async updateOneFeedback (id : number | string, feedback: Feedback):Promise<Feedback>{
     // amra ekhane kichu validation korbo 
-    const feedbackToUpdate = await this.findOne(id);
+    const feedbackToUpdate = await this.findOneFeedback(id);
     if(feedbackToUpdate == undefined){
       throw new NotFoundException();
     }
     await this.feedbacksRepository.update(id, feedback);
-    return this.findOne(id);
+    return this.findOneFeedback(id);
   }
 
-  async delete (id : number):Promise<DeleteResult>{
+  async deleteOneFeedback (id : number |string):Promise<DeleteResult>{
     // amra ekhane kichu validation korbo 
-    const feedbackToDelete = await this.findOne(id);
+    const feedbackToDelete = await this.findOneFeedback(id);
     if(feedbackToDelete == undefined){
       throw new NotFoundException();
     }
     return this.feedbacksRepository.delete(id);
+    // better hoito .. kon id ta delete hoilo .. sheta jodi return korto 😢
   }
 }
 

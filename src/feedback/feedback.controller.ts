@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Param, ParseIntPipe } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, ParseIntPipe, Patch, Delete } from '@nestjs/common';
 import { FeedbackService } from './feedback.service';
 import { Feedback } from './entity/feedback.entity';
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
@@ -23,7 +23,17 @@ export class FeedbackController {
 
   @Get(':id')
   findOne(@Param ('id', ParseIntPipe) id: string | number ):Promise<Feedback | null>{
-    return this.feedbackService.findOne(id);
+    return this.feedbackService.findOneFeedback(id);
   }
   
+  @Patch(':id')
+  update(@Param('id', ParseIntPipe) id : string |number, @Body() feeedback : Feedback) : Promise <Feedback>{
+    return this.feedbackService.updateOneFeedback(id, feeedback)
+  }
+
+  @Delete(':id')
+  delete(@Param('id', ParseIntPipe) id : string |number) {
+    return this.feedbackService.deleteOneFeedback(id)
+  }
+
 } 
