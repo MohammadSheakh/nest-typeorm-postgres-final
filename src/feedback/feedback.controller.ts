@@ -22,8 +22,7 @@ export class FeedbackController {
   }
 
   @Get(':id')
-  async findOne(@Param ('id', ParseIntPipe) id: any ):Promise<Feedback>{
-    await console.log("======================================================================================= Heat 1 😢"+id);
+  findOne(@Param ('id', ParseIntPipe) id: string | number ):Promise<Feedback | null>{
     return this.feedbackService.findOne(id);
   }
   

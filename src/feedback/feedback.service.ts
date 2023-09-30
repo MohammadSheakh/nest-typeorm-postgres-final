@@ -22,7 +22,7 @@ export class FeedbackService {
 
   // id : number // type any rakha uchit na 😢
   async findOne(id: string | number | any):Promise<Feedback | null>{
-    console.log(" Heat 2 😢");
+    
     if(id != null && id != undefined){
       return this.feedbacksRepository.findOne({where : {id}});
     }
